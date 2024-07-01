@@ -54,6 +54,33 @@ def addUser():
         db.database.commit()
     return redirect (url_for('home'))
 
+# Ruta para borrar usuarios
+@app.route('/borrarusuario/<string:id>')
+def borrar_usuario(id):
+    cursor = db.database.cursor()
+    sql = "DELETE FROM usuarios WHERE id=%s"
+    data = (id,)
+    cursor.execute(sql, data)
+    db.database.commit()
+    return redirect (url_for('home'))
+
+# Ruta para modificar datos
+@app.route('/editar_usuario/<string:id>', methods=['POST'])
+def editar(id):
+    user_mail = request.form['mail']
+    user_name = request.form['nombre']
+    user_pass = request.form['clave']
+
+    if user_mail and user_name and user_pass:
+        cursor = db.database.cursor()
+        sql = "UPDATE usuarios SET mail = %s, nombre = %s, clave = %s WHERE id=%s"
+        data = (user_mail, user_name, user_pass, id)
+
+        # hay que ejecutar la consulta y luego hacer el commit
+        cursor.execute(sql, data)
+        db.database.commit()
+    return redirect (url_for('home'))
+
 
 # Ejecución directa del archivo, en el puerto 4000 (http://localhost:4000)
 if __name__ == '__main__':
