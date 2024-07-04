@@ -1,0 +1,43 @@
+{% include "header.html" %}
+    <style>
+        /* Animación para el icono */
+        .icono {
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <main>
+        <!-- <section class="d-flex flex-column justify-content-center align-items-center">
+            <p>Busque ingresando título, o autor, en la API de Google Books</p>
+            <p>Ingrese las palabras de búsqueda, presione ENTER para buscar:</p>
+            <p><input type="text" name="query" id="query_text" /></p>
+            <p><input type="button" value="BUSCAR EN GOOGLE BOOKS" id="btn_search" /></p>
+            <div id="output" class="d-flex flex-wrap gap-5 justify-content-center align-items-center">
+            </div>
+        </section> -->
+
+        <section>
+            <p>Busque ingresando título, o autor, en la API de Google Books</p>
+            <p>Ingrese las palabras de búsqueda, presione ENTER para buscar:</p>
+            <p><input type="text" name="query" id="query_text" /></p>
+            <p><input type="button" value="BUSCAR EN GOOGLE BOOKS" id="btn_search" /></p>
+
+            <!-- Acá se agregan los títulos que llegan como resultado de la búsqueda -->
+            <div id="output">
+                <!-- divs clase .results-box -->
+            </div>
+        </section>
+    </main>
+{% include "footer.html" %}

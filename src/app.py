@@ -23,8 +23,29 @@ app = Flask(__name__, template_folder=template_dir)
 
 # Importante a la primer línea de código (from flask import Flask) agregar render_template
 
+@app.route('/home')
 @app.route('/')
 def home():
+    return render_template('index.html')
+
+@app.route('/catalogo')
+def catalogo():
+    return render_template('catalogo.html')
+
+@app.route('/cineytv')
+def cineytv():
+    return render_template('cineytv.html')
+
+@app.route('/nosotros')
+def nosotros():
+    return render_template('nosotros.html')
+
+@app.route('/foro', methods=['GET'])
+def foro():
+    return render_template('foro.html')
+
+@app.route('/usuarios', methods=['GET'])
+def usuarios():
     cursor = db.database.cursor()
     cursor.execute("SELECT * FROM usuarios")
     miResultado = cursor.fetchall()
@@ -35,7 +56,7 @@ def home():
         insertObject.append(dict(zip(columnNames, registro)))
     cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
 
-    return render_template('index.html', data=insertObject)
+    return render_template('usuarios.html', data=insertObject)
 
 # Ruta para guardar usuarios en la base de datos.
 @app.route('/alta_usuario', methods=['POST'])
@@ -52,7 +73,7 @@ def addUser():
         # hay que ejecutar la consulta y luego hacer el commit
         cursor.execute(sql, data)
         db.database.commit()
-    return redirect (url_for('home'))
+    return redirect (url_for('usuarios'))
 
 # Ruta para borrar usuarios
 @app.route('/borrarusuario/<string:id>')
@@ -62,7 +83,7 @@ def borrar_usuario(id):
     data = (id,)
     cursor.execute(sql, data)
     db.database.commit()
-    return redirect (url_for('home'))
+    return redirect (url_for('usuarios'))
 
 # Ruta para modificar datos
 @app.route('/editar_usuario/<string:id>', methods=['POST'])
@@ -79,7 +100,7 @@ def editar(id):
         # hay que ejecutar la consulta y luego hacer el commit
         cursor.execute(sql, data)
         db.database.commit()
-    return redirect (url_for('home'))
+    return redirect (url_for('usuarios'))
 
 
 # Ejecución directa del archivo, en el puerto 4000 (http://localhost:4000)

@@ -1,0 +1,93 @@
+{% include "header.html" %}
+
+  <main>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="/alta_usuario" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Correo electrónico (usuario)</label>
+                            <input type="text" class="form-control mb-3" name="mail">
+                        </div>
+                        <div class="col">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control mb-3" name="nombre">
+                        </div>
+                        <div class="col">
+                            <label>Clave (password)</label>
+                            <input type="text" class="form-control mb-3" name="clave">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary mt-4 mb-4" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Tabla -->
+
+                <table class="table table-bordered">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">e-mail</th>
+                        <th scope="col">nombre</th>
+                        <th scope="col">password (clave)</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </thead>
+
+                    <tbody>
+                        {% for d in data %}
+                            <tr>
+                                <td>{{d.id}}</td>
+                                <td>{{d.mail}}</td>
+                                <td>{{d.nombre}}</td>
+                                <td>{{d.clave}}</td>
+                                <td><button class="btn btn-primary btn-sm" 
+                                    id="btn-editar{{d.id}}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal{{d.id}}">Editar</button></td>
+                                <td><a href="{{ url_for('borrar_usuario', id = d.id )}}" class="btn btn-danger btn-sm">Borrar</a></td>
+                                
+                            </tr>
+
+                            <!-- MODAL -->
+                            <div class="modal fade" id="modal{{d.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">{{d.nombre}}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form action="/editar_usuario/{{d.id}}" method="POST">
+                                            <label>Correo electrónico (usuario)</label>
+                                            <input type="text" class="form-control mb-3" name="mail" value="{{d.mail}}">
+                                        
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control mb-3" name="nombre" value="{{d.nombre}}">
+                                        
+                                            <label>Clave (password)</label>
+                                            <input type="text" class="form-control mb-3" name="clave" value="{{d.clave}}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include "footer.html" %}
