@@ -9,7 +9,7 @@
 :root {
     --marron: #8F4A1F;
     --marronclaro: #B15C27;
-    --grisclaro: #e9e9e9;
+    --grisclaro: #bdb5b5;
     --grisoscuro: #333333;
     --negro: #000000;
     --blanco: #ffffff;
@@ -106,7 +106,7 @@ section {
     margin: 24px;
     padding: 16px;
     border-radius: 16px;
-    background-color: saddlebrown;
+    background-color: var(--grisclaro);
 }
 
 p {
@@ -137,7 +137,7 @@ p {
 
 .results-box {
     display: inline-block;
-    background-color: saddlebrown;
+    background-color: var(--marronclaro);
     border: 4px solid;
     border-color: chocolate;
     margin: 10px 10px 10px 10px;

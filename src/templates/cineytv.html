@@ -1,5 +1,10 @@
-{% include "header.html" %}
-
+{% extends "base.html" %}
+{% block title %} Libros en cine y TV {% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="./static/style/cineytv.css" >
+{% endblock %}
+{% block content %}
 <main>
 
         <div class="gallery">
@@ -317,4 +322,4 @@
 
     </main>
 
-{% include "footer.html" %}
+{% endblock %}

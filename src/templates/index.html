@@ -1,4 +1,10 @@
-{% include "header.html" %}
+{% extends "base.html" %}
+{% block title %} Bienvenidos {% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="./static/style/index.css" >
+{% endblock %}
+{% block content %}
 
     <main>
         <!-- Columna del texto de la misión -->
@@ -95,4 +101,4 @@
 
 <script src="./assets/script/index.js"></script>
 
-{% include "footer.html" %}
+{% endblock %}

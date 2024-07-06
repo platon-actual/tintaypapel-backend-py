@@ -1,4 +1,8 @@
-{% include "header.html" %}
+{% extends "base.html" %}
+{% block title %} Catálogo API {% endblock %}
+{% block head %}
+{{ super() }}
+    <link rel="stylesheet" href="./static/style/catalogo.css" >
     <style>
         /* Animación para el icono */
         .icono {
@@ -18,6 +22,8 @@
             }
         }
     </style>
+{% endblock %}
+{% block content %}
     <main>
         <!-- <section class="d-flex flex-column justify-content-center align-items-center">
             <p>Busque ingresando título, o autor, en la API de Google Books</p>
@@ -40,4 +46,7 @@
             </div>
         </section>
     </main>
-{% include "footer.html" %}
+{% endblock %}
+{% block page_js %}
+    <script defer src="./static/script/catalogo.js"></script>
+{% endblock %}

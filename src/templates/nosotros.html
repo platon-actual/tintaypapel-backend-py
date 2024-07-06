@@ -1,4 +1,10 @@
-{% include "header.html" %}
+{% extends "base.html" %}
+{% block title %} Nosotros {% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="./static/style/nosotros.css" >
+{% endblock %}
+{% block content %}
   <main>
     <section>
       <!-- <img src="imagenes/b-banner1.jpg"\>  -->
@@ -18,4 +24,4 @@
     </section>
     
   </main>
-  {% include "footer.html" %}
+  {% endblock %}

@@ -1,4 +1,10 @@
-{% include "header.html" %}
+{% extends "base.html" %}
+{% block title %} Usuarios CRUD {% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="./static/style/cineytv.css" >
+{% endblock %}
+{% block content %}
 
   <main>
     <div class="container">
@@ -90,4 +96,4 @@
     </div>
 </main>
 
-{% include "footer.html" %}
+{% endblock %}
