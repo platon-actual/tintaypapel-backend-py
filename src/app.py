@@ -46,7 +46,8 @@ def foro():
 
 @app.route('/usuarios', methods=['GET'])
 def usuarios():
-    cursor = db.database.cursor()
+    conn = db.db_connect()
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM usuarios")
     miResultado = cursor.fetchall()
     # Convertir los datos a diccionario
@@ -55,7 +56,7 @@ def usuarios():
     for registro in miResultado:
         insertObject.append(dict(zip(columnNames, registro)))
     cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
-
+    conn.close()
     return render_template('usuarios.html', data=insertObject)
 
 # Ruta para guardar usuarios en la base de datos.
@@ -66,23 +67,29 @@ def addUser():
     user_pass = request.form['clave']
 
     if user_mail and user_name and user_pass:
-        cursor = db.database.cursor()
+        conn = db.db_connect()
+        cursor = conn.cursor()
         sql = "INSERT INTO usuarios (mail, nombre, clave) VALUES (%s, %s, %s)"
         data = (user_mail, user_name, user_pass)
 
         # hay que ejecutar la consulta y luego hacer el commit
         cursor.execute(sql, data)
-        db.database.commit()
+        conn.commit()
+        cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
+        conn.close()
     return redirect (url_for('usuarios'))
 
 # Ruta para borrar usuarios
 @app.route('/borrarusuario/<string:id>')
 def borrar_usuario(id):
-    cursor = db.database.cursor()
+    conn = db.db_connect()
+    cursor = conn.cursor()
     sql = "DELETE FROM usuarios WHERE id=%s"
     data = (id,)
     cursor.execute(sql, data)
-    db.database.commit()
+    conn.commit()
+    cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
+    conn.close()
     return redirect (url_for('usuarios'))
 
 # Ruta para modificar datos
@@ -93,13 +100,16 @@ def editar(id):
     user_pass = request.form['clave']
 
     if user_mail and user_name and user_pass:
-        cursor = db.database.cursor()
+        conn = db.db_connect()
+        cursor = conn.cursor()
         sql = "UPDATE usuarios SET mail = %s, nombre = %s, clave = %s WHERE id=%s"
         data = (user_mail, user_name, user_pass, id)
 
         # hay que ejecutar la consulta y luego hacer el commit
         cursor.execute(sql, data)
-        db.database.commit()
+        conn.commit()
+        cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
+        conn.close()
     return redirect (url_for('usuarios'))
 
 
