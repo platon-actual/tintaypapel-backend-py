@@ -42,7 +42,36 @@ def nosotros():
 
 @app.route('/foro', methods=['GET'])
 def foro():
-    return render_template('foro.html')
+    conn = db.db_connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM mensajes ORDER BY id DESC")
+    miResultado = cursor.fetchall()
+    # Convertir los datos a diccionario
+    insertObject = []
+    columnNames = [column[0] for column in cursor.description]
+    for registro in miResultado:
+        insertObject.append(dict(zip(columnNames, registro)))
+    cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
+    conn.close()
+    return render_template('foro.html', mensajes=insertObject)
+
+@app.route('/foro', methods=['POST'])
+def nuevo_mensaje_foro():
+    mensaje_usuario = request.form['nombre']
+    mensaje_texto = request.form['mensaje']
+    
+    if mensaje_usuario and mensaje_texto:
+        conn = db.db_connect()
+        cursor = conn.cursor()
+        sql = "INSERT INTO mensajes (autor, mensaje) VALUES (%s, %s)"
+        data = (mensaje_usuario, mensaje_texto)
+
+        # hay que ejecutar la consulta y luego hacer el commit
+        cursor.execute(sql, data)
+        conn.commit()
+        cursor.close() # Es una buena práctica cerrar los cursores luego de usarlos
+        conn.close()
+    return redirect (url_for('foro'))
 
 @app.route('/usuarios', methods=['GET'])
 def usuarios():

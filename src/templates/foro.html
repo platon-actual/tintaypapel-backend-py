@@ -7,34 +7,46 @@
 {% block content %}
 <main>
 <section>
-    <h3>Use el siguiente formulario para ponerse en contacto con nosotros:</h3>
-    <form action="enviado.html" method="GET" id="form_contacto">
+    <h3>Deje un mensaje en nuestro foro!</h3>
+    <form action="./foro" method="POST" id="form_contacto">
       <div>
         <label for="nombre">Ingrese su nombre</label>
         <input type="text" id="nombre" name="nombre" onchange="validarNombre();">
       </div>
       <div>
-        <label for="correo">Ingrese su e-mail (obligatorio):</label>
-        <input type="text" id="correo" name="correo" onchange="validarCorreo();">
-      </div>
-      <div>
-        <label for="consulta">Ingrese su consulta o sugerencia(opcional):</label>
+        <label for="mensaje">Ingrese su mensaje:</label>
         <br>
-        <textarea name="consulta" id="consulta"></textarea>
+        <textarea name="mensaje" id="mensaje"></textarea>
       </div>
-      <div>
-        <label for="noticias">Suscribirme a las noticias:</label>
-            <select name="noticias" id="noticias">
-                <option value="si">Si</option>
-                <option value="no">No</option>
-            </select>
-        </div>
         <div>
             <label for="acepta_tyc">Acepto Términos y condiciones</label>
             <input type="checkbox" id="acepta_tyc" name="acepta_tyc">
         </div>
         <button type="submit">Enviar consulta</button>
     </form>
+</section>
+<section>
+  <table class="table table-bordered">
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Mensaje</th>
+    </thead>
+
+    <tbody>
+        {% for datos in mensajes %}
+            <tr>
+                <td>{{ datos.id }}</td>
+                <td>{{ datos.autor }}</td>
+                <td>{{ datos.mensaje }}</td>
+                
+               
+            </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
 </section>
 </main>
 
