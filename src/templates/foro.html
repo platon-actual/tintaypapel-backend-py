@@ -2,28 +2,34 @@
 {% block title %} Foro {% endblock %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="./static/style/cineytv.css" >
+    <link rel="stylesheet" href="./static/style/foro.css" >
+    
+
 {% endblock %}
 {% block content %}
 <main>
 <section>
-    <h3>Deje un mensaje en nuestro foro!</h3>
-    <form action="./foro" method="POST" id="form_contacto">
-      <div>
-        <label for="nombre">Ingrese su nombre</label>
-        <input type="text" id="nombre" name="nombre" onchange="validarNombre();">
+    <div class="row justify-content-left my-5">
+      <h3>Deje un mensaje en nuestro foro!</h3>
+      <div class="col-lg-6">
+        <form action="./foro" method="POST" id="form_mensaje">
+          <div>
+            <label for="nombre" class="form-label">Ingrese su nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej.: Juana" class="form-control">
+          </div>
+          <div>
+            <label for="mensaje" class="form-label">Ingrese su mensaje:</label>
+            <br>
+            <textarea name="mensaje" id="mensaje" class="form-control"></textarea>
+          </div>
+            <div>
+                <label for="acepta_tyc" class="form-label">Acepto Términos y condiciones</label>
+                <input type="checkbox" id="acepta_tyc" name="acepta_tyc">
+            </div>
+            <button type="submit" class="btn btn-secondary">Enviar mensaje</button>
+        </form>
       </div>
-      <div>
-        <label for="mensaje">Ingrese su mensaje:</label>
-        <br>
-        <textarea name="mensaje" id="mensaje"></textarea>
-      </div>
-        <div>
-            <label for="acepta_tyc">Acepto Términos y condiciones</label>
-            <input type="checkbox" id="acepta_tyc" name="acepta_tyc">
-        </div>
-        <button type="submit">Enviar consulta</button>
-    </form>
+    </div>
 </section>
 <section>
   <table class="table table-bordered">
@@ -49,5 +55,7 @@
 
 </section>
 </main>
+
+<script src="./static/script/foro.js"></script>
 
 {% endblock %}
