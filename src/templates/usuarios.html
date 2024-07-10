@@ -10,19 +10,19 @@
     <div class="container">
         <div class="card shadow">
             <div class="card-body">
-                <form action="/alta_usuario" method="POST">
+                <form action="/alta_usuario" method="POST" id="form_altausuario">
                     <div class="row mb-3">
                         <div class="col">
                             <label>Correo electrónico (usuario)</label>
-                            <input type="text" class="form-control mb-3" name="mail">
+                            <input type="text" class="form-control mb-3" name="mail" id="mail">
                         </div>
                         <div class="col">
                             <label>Nombre</label>
-                            <input type="text" class="form-control mb-3" name="nombre">
+                            <input type="text" class="form-control mb-3" name="nombre" required>
                         </div>
                         <div class="col">
                             <label>Clave (password)</label>
-                            <input type="text" class="form-control mb-3" name="clave">
+                            <input type="text" class="form-control mb-3" name="clave" required>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary mt-4 mb-4" type="submit">Guardar</button>
@@ -96,4 +96,5 @@
     </div>
 </main>
 
+<script src="./static/script/usuarios.js"></script>
 {% endblock %}
